@@ -8,7 +8,7 @@ Pending.
 Installing this Plug-in is incredibly easy.
 
 Requirements:
-  Rodin (v. 3.4 suggested)
+  Having Rodin (v. 3.4 suggested) installed.
 
 1. You just need to download the .jar file (that you can find in the EB2PY_jar/ path of this repository) and copy it into the plugins/ path of your Rodin directory.
 2. That's it :D!
