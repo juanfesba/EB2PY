@@ -16,10 +16,10 @@ Requirements:
 **How do I make use of it?**
 
 Requirements:
-  Having the EB2PY Plug-in already installed.
-  Python (v. 3.5+, but especially v. 3.7.2)
-  Have a bit of knowledge about Event-B.
-  Optional: Install Mypy if you want to check the typing of the generated .py files (by executing the -$mypy file.py- command).
+- Having the EB2PY Plug-in already installed.
+- Python (v. 3.5+, but especially v. 3.7.2)
+- Have a bit of knowledge about Event-B.
+- Optional: Install Mypy if you want to check the typing of the generated .py files (by executing the -$mypy file.py- command).
   
 Part I: Running the Translator.
 1. Open Rodin. And create some amazing and correct Event-B models.
