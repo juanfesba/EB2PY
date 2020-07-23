@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="EventB2Python.commands.category"
+            name="Sample Category">
+      </category>
+      <command
+            categoryId="EventB2Python.commands.category"
+            name="Sample Command"
+            id="EventB2Python.commands.sampleCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="eventb2python.handlers.SampleHandler"
+            commandId="EventB2Python.commands.sampleCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="EventB2Python.commands.sampleCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="EventB2Python.menus.sampleMenu"
+               label="EB2PY"
+               mnemonic="M">
+            <command
+                  commandId="EventB2Python.commands.sampleCommand"
+                  id="EventB2Python.menus.sampleCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="EventB2Python.toolbars.sampleToolbar">
+            <command
+                  id="EventB2Python.toolbars.sampleCommand"
+                  commandId="EventB2Python.commands.sampleCommand"
+                  icon="icons/sample.png"
+                  tooltip="Say hello world">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+
+</plugin>
