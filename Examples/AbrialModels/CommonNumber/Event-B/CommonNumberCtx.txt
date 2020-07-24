@@ -14,3 +14,5 @@ axioms
 	@ax5 ∀k,l·((k∈dom(g) ∧ l∈dom(g) ∧ k≤l )⇒(g(k)≤g(l)))
 	@ax6 ran(f)∩ran(g)≠∅
 end
+
+// This Event-B component is based on models that appear in the paper from J.-R. Abrial named "Event Driven Sequential Program Construction".

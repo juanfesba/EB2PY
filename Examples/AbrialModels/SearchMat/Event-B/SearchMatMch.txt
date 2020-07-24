@@ -46,3 +46,5 @@ events
   	@act1 k≔k+1
   end
 end
+
+// This Event-B component is based on models that appear in the paper from J.-R. Abrial named "Event Driven Sequential Program Construction".

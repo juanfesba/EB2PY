@@ -11,3 +11,5 @@ axioms
 @ax3 f ∈ (1‥m)×(1‥n)→s
 @ax4 dom(f)∈ℙ(ℤ×ℤ)
 end
+
+// This Event-B component is based on models that appear in the paper from J.-R. Abrial named "Event Driven Sequential Program Construction".
