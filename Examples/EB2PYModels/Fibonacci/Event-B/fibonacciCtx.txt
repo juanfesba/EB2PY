@@ -1,0 +1,11 @@
+context fibonacciCtx
+
+constants
+	fibonacci
+
+axioms
+@ax0 fibonacci ∈ ℕ → ℕ
+@ax1 fibonacci(0)=0 ∧ fibonacci(1)=1
+@ax2 ∀i·(i>1 ⇒ fibonacci(i) = fibonacci(i−1) + fibonacci(i−2))
+
+end

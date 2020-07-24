@@ -1,0 +1,19 @@
+machine SquareRootMch sees SquareRootCtx
+
+variables sqrt
+
+invariants
+@inv0 sqrt ∈ ℕ
+
+events
+  event INITIALISATION then
+  	@act0 sqrt :∈ ℕ
+  end
+
+  event SquareRoot
+  then
+  	@act0 sqrt :∣ (sqrt' ∈ ℕ ∧ sqrt'∗sqrt' ≤ num ∧ num < (sqrt'+1)∗(sqrt'+1))
+  end
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

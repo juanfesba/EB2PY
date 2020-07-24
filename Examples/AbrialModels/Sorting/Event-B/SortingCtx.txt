@@ -1,0 +1,6 @@
+context SortingCtx
+constants
+	m
+axioms
+@ax0 m∈ℕ1
+end

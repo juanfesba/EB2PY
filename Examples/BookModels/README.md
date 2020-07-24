@@ -1,0 +1,1 @@
+Event-B models in this folder are based on models that appear in the following books: (i) Rodin User's Handbook. (ii) System Modelling & Design Using Event-B by Ken Robinson.

@@ -1,0 +1,1 @@
+Event-B models in this folder are based on models that appear in the paper from J.-R. Abrial named "Event Driven Sequential Program Construction" (with some modifications).

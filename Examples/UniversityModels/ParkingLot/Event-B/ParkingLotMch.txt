@@ -1,0 +1,72 @@
+machine ParkingLotMch sees ParkingLotCtx
+
+variables doors parking
+
+invariants
+  @inv0 doors ∈ Door → DoorState
+  @inv1 parking ∈ ParkingSpace ⤔ Car
+
+events
+  event INITIALISATION
+    then
+      @act0 doors ≔  { Entrance ↦ Closed, Exit ↦ Closed }
+      @act1 parking ≔ ∅
+  end
+
+  event StartOpening
+    any d
+    where
+      @grd0 d ∈ Door
+      @grd1 doors(d) = Closed
+    then
+      @act0 doors(d) ≔ Opening
+  end
+
+  event FromOpening
+    any door state
+    where
+      @grd0 door ∈ Door
+      @grd1 doors(door) = Opening
+      @grd2 state ∈ { Open, Closing }
+    then
+      @act0 doors(door) ≔ state
+  end
+
+  event FromClosing
+    any door1 state1
+    where
+      @grd0 door1 ∈ Door
+      @grd1 doors(door1) = Closing
+      @grd2 state1 ∈ { Opening, Closed }
+    then
+      @act0 doors(door1) ≔ state1
+  end
+
+  event StartClosing
+    any door3
+    where
+      @grd0 door3 ∈ Door
+      @grd1 doors(door3) = Open
+    then
+      @act0 doors(door3) ≔ Closing
+  end
+
+  event ParkCar
+    any c s
+    where
+      @grd0 doors(Entrance) = Open
+      @grd1 c ∈ Car ∖ ran(parking)
+      @grd2 s ∈ ParkingSpace ∖ dom(parking)
+    then
+      @act0 parking ≔ parking ∪ { s↦c }
+  end
+
+  event UnparkCar
+    any space
+    where
+      @grd0 doors(Exit) = Open
+      @grd1 space ∈ dom(parking)
+    then
+      @act0 parking ≔ parking ∖ { space↦parking(space) }
+  end
+end

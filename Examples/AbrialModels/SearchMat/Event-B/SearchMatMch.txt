@@ -1,0 +1,48 @@
+machine SearchMatMch sees SearchMatCtx
+
+variables i j x d k l
+
+invariants
+@inv0 i↦j ∈ dom(f)
+@inv1 x ∈ ran(f)
+@inv2 d∈{0,1}
+@inv3 k ∈ 0‥m−1
+@inv4 l ∈ 0‥n
+@inv5 x ∉  f[(1‥k)×(1‥n)] ∧ x ∉  f[{k+1}×(1‥l)]
+
+events
+  event INITIALISATION then
+  @act0 x :∈ ran(f)
+  @act1 k ≔ 0
+  @act2 l ≔ 0
+  @act3 d ≔ 1
+  @act4 i ≔ 1
+  @act5 j ≔ 1
+  end
+
+  event aprog
+  when
+  	@grd0 d≠0
+  	@grd1 l≠n
+  	@grd2 f(k+1↦l+1)=x
+  then
+  	@act0 i≔k+1
+  	@act1 j≔l+1
+  	@act2 d≔0
+  end
+
+  event progress_l
+  when
+  	@grd0 d≠0 ∧ l≠n ∧ f(k+1↦l+1)≠x
+  then
+  	@act0 l≔l+1
+  end
+
+  event progress_k
+  when
+  	@grd0 d≠0 ∧ l=n
+  then
+  	@act0 l≔0
+  	@act1 k≔k+1
+  end
+end

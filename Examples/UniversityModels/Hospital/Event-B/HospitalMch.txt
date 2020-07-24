@@ -1,0 +1,62 @@
+machine HospitalMch sees HospitalCtx
+  variables
+    WaitingRoomCnt
+    InSurgeryCnt
+    HeadNurse
+  invariants
+    @inv0 WaitingRoomCnt ∈ ℕ
+    @inv1 InSurgeryCnt ∈ 0 ‥ Capacity
+    @inv2 HeadNurse ∈ HospitalState
+    @inv3 InSurgeryCnt ≠ 0 ⇒ HeadNurse = Available
+events
+  event INITIALISATION
+  then
+    @act0 WaitingRoomCnt ≔  0
+    @act1 InSurgeryCnt ≔  0
+    @act2 HeadNurse ≔  Unavailable
+  end
+
+  event PatientArrival
+  then
+    @act0 WaitingRoomCnt ≔ WaitingRoomCnt + 1
+  end
+
+  event PatientDeparture
+  where
+    @grd0 WaitingRoomCnt ≠ 0
+  then
+    @act0 WaitingRoomCnt ≔ WaitingRoomCnt − 1
+  end
+
+  event PatientToSurgery
+  where
+    @grd0 HeadNurse = Available
+    @grd1 WaitingRoomCnt > 0
+    @grd2 InSurgeryCnt < Capacity
+  then
+    @act0 WaitingRoomCnt ≔ WaitingRoomCnt − 1
+    @act1 InSurgeryCnt ≔ InSurgeryCnt + 1
+  end
+
+  event PatientToRecovery
+  where
+    @grd0 InSurgeryCnt > 0
+  then
+    @act0 InSurgeryCnt ≔ InSurgeryCnt − 1
+  end
+
+  event HeadNurseArrival
+  where
+    @grd0 HeadNurse = Unavailable
+  then
+    @act0 HeadNurse ≔ Available
+  end
+
+  event HeadNurseDeparture
+  where
+    @grd0 HeadNurse = Available
+    @grd1 InSurgeryCnt = 0
+  then
+    @act0 HeadNurse ≔ Unavailable
+  end
+end

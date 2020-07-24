@@ -1,0 +1,12 @@
+context ParkingLotCtx
+
+sets DoorState Door Car ParkingSpace
+
+constants Open Opening Closing Closed Entrance Exit
+
+axioms
+  @ax0 partition(DoorState,{Open},{Opening},{Closing},{Closed})
+  @ax1 partition(Door,{Entrance},{Exit})
+  @ax2 finite(Car)
+  @ax3 finite(ParkingSpace)
+end

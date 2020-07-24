@@ -1,0 +1,39 @@
+machine TrafficLightSystemMch
+
+variables cars_go peds_go
+
+invariants
+	@inv0 cars_go ∈ BOOL
+	@inv1 peds_go ∈ BOOL
+	@inv2 ¬(cars_go = TRUE ∧ peds_go = TRUE)
+
+events
+  event INITIALISATION then
+  	@act0 cars_go ≔ FALSE
+  	@act1 peds_go ≔ FALSE
+  end
+
+  event set_peds_go
+  when
+  	@grd0 cars_go = FALSE
+  then
+  	@act0 peds_go ≔ TRUE
+  end
+
+  event set_peds_stop
+  then
+  	@act0 peds_go ≔ FALSE
+  end
+
+  event set_cars
+  any
+  	new_value
+  when
+  	@grd0 new_value ∈ BOOL
+  	@grd1 new_value = TRUE ⇒ peds_go = FALSE
+  then
+  	@act0 cars_go ≔ new_value
+  end
+end
+
+// This Event-B component is based on models that appear in the following book: Rodin User's Handbook.

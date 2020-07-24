@@ -1,0 +1,35 @@
+machine CoffeeClubMch
+
+variables piggybank
+
+invariants
+@inv1 piggybank ∈ ℕ
+
+events
+  event INITIALISATION then
+  	@act0 piggybank ≔ 0
+  end
+
+  event FeedBank
+  any
+  	amount_feed
+  when
+  	@grd1 amount_feed ∈ 1‥100
+  then
+  	@act1 piggybank ≔  piggybank + amount_feed
+  end
+
+  event RobBank
+  any
+  	amount_rob
+  when
+  	@grd1 amount_rob ∈ 1‥50
+  	@grd2 amount_rob ≤ piggybank
+  then
+  	@act1 piggybank ≔  piggybank − amount_rob
+  end
+
+
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

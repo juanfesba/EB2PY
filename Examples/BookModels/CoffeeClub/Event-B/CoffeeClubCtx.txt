@@ -1,0 +1,11 @@
+context CoffeeClubCtx
+
+sets
+	MEMBER
+
+axioms
+@ax0 finite(MEMBER)
+
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

@@ -1,0 +1,11 @@
+context HospitalCtx
+  sets
+  	HospitalState
+  constants
+    Capacity
+    Available
+    Unavailable
+  axioms
+    @ax0 Capacity ∈ ℕ1
+    @ax1 partition(HospitalState,{Available},{Unavailable})
+end

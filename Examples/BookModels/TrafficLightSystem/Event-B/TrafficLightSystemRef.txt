@@ -1,0 +1,43 @@
+machine TrafficLightSystemRef refines TrafficLightSystemMch sees TrafficLightSystemCtx
+
+variables cars_go peds_go peds_colour cars_colours
+
+invariants
+  @inv10 peds_colour ∈ {red,green}
+  @gluing peds_go = TRUE ⇔ peds_colour = green
+  @inv11 cars_colours ⊆ COLOURS
+  @gluing_cars cars_go = TRUE ⇔ green ∈ cars_colours
+
+events
+  event INITIALISATION extends INITIALISATION then
+    @act10 peds_colour ≔ red
+    @act11 cars_colours ≔{red}
+  end
+
+  event set_peds_go extends set_peds_go
+  when
+  	@grd10 green ∉ cars_colours
+  then
+  	@act10 peds_colour ≔ green
+  end
+
+  event set_peds_stop extends set_peds_stop
+  then
+  	@act10 peds_colour ≔ red
+  end
+
+  event set_cars extends set_cars
+  any new_value_colours
+    where
+      @grd10 new_value_colours ⊆ COLOURS
+      @grd11 green ∈ new_value_colours ⇒ peds_colour = red
+      @grd12 cars_colours = {yellow} ⇒ new_value_colours = {red}
+      @grd13 cars_colours = {red} ⇒ new_value_colours = {red,yellow}
+      @grd14 cars_colours = {red,yellow} ⇒ new_value_colours = {green}
+      @grd15 cars_colours = {green} ⇒ new_value_colours = {yellow}
+    then
+      @act10 cars_colours ≔ new_value_colours
+  end
+end
+
+// This Event-B component is based on models that appear in the following book: Rodin User's Handbook.

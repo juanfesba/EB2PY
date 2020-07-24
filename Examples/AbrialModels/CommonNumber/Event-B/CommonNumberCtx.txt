@@ -1,0 +1,16 @@
+context CommonNumberCtx
+
+constants
+	m
+	n
+	f
+	g
+axioms
+	@ax0 m∈ℕ1
+	@ax1 n∈ℕ1
+	@ax2 f∈1‥m↣ℕ
+	@ax3 g∈1‥n↣ℕ
+	@ax4 ∀k,l·((k∈dom(f) ∧ l∈dom(f) ∧ k≤l )⇒(f(k)≤f(l)))
+	@ax5 ∀k,l·((k∈dom(g) ∧ l∈dom(g) ∧ k≤l )⇒(g(k)≤g(l)))
+	@ax6 ran(f)∩ran(g)≠∅
+end

@@ -1,0 +1,60 @@
+machine CoffeeClubRef refines CoffeeClubMch sees CoffeeClubCtx
+
+variables piggybank members accounts coffeeprice
+
+invariants
+@inv10 members ⊆ MEMBER
+@inv11 accounts ∈ members → ℕ
+@inv12 coffeeprice ∈ ℕ1
+
+events
+  event INITIALISATION extends INITIALISATION then
+  	@act10 members ≔ ∅
+  	@act11 accounts ≔ ∅
+  	@act12 coffeeprice :∈ ℕ1
+  end
+
+  event FeedBank extends FeedBank
+  end
+
+  event RobBank extends RobBank
+  end
+
+  event SetPrice
+  any new_price
+  where
+  	@grd0 new_price ∈ 1‥30
+  then
+  	@act0 coffeeprice ≔ new_price
+  end
+
+  event NewMember
+  any new_member
+  where
+  	@grd0 new_member ∈ MEMBER∖members
+  then
+  	@act0 accounts(new_member) ≔  0
+  	@act1 members ≔ members ∪ {new_member}
+  end
+
+  event Contribute
+  any contribution member
+  where
+  	@grd0 contribution ∈ 1‥70
+  	@grd1 member ∈ members
+  then
+  	@act0 accounts(member) ≔  accounts(member) + contribution
+  	@act1 piggybank ≔ piggybank + contribution
+  end
+
+  event BuyCoffee
+  any member_buy
+  where
+  	@grd0 accounts(member_buy) ≥ coffeeprice
+  	@grd1 member_buy ∈ members
+  then
+  	@act0 accounts(member_buy) ≔  accounts(member_buy) − coffeeprice
+  end
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

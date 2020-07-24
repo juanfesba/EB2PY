@@ -1,0 +1,6 @@
+context HospitalCtxExt extends HospitalCtx
+  constants
+    MaxMDCap
+  axioms
+    @ax10 MaxMDCap ∈ ℕ1
+end

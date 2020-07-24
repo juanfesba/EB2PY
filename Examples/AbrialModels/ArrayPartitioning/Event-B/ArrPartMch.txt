@@ -1,0 +1,52 @@
+machine ArrPartMch sees ArrPartCtx
+
+variables f k d i j
+
+invariants
+@inv0 f∈1‥m↣ℕ
+@inv1 k∈ℕ∪{−1}
+@inv2 d∈{0,1}
+@inv3 i∈0‥m ∧  j∈0‥m ∧ (i≤j ∨ i+1=j)
+@inv4 f[1‥i]⊆0‥x
+@inv5 f[j+1‥m]⊆(ℕ∖0‥x)
+
+events
+  event INITIALISATION then
+  	@act0 i≔0
+  	@act1 j≔m
+  	@act2 d≔1
+  	@act3 k≔−1
+  	@act4 f≔{1↦4,2↦10,3↦7,4↦1,5↦6,6↦8,7↦9,8↦3,9↦5,10↦2} //ran : 1..10
+  end
+
+  event aprog
+  when
+  	@grd0 d≠0 ∧ i≥j
+  then
+  	@act0 k≔i
+  	@act1 d≔0
+  end
+
+  event progress1
+  when
+  	@grd0 d≠0 ∧ i<j ∧ f(i+1)≤x
+  then
+  	@act0 i≔i+1
+  end
+
+  event progress2
+  when
+  	@grd0 d≠0 ∧ i<j ∧ f(i+1)>x ∧ f(j)>x
+  then
+  	@act0 j≔j−1
+  end
+
+  event swap
+  when
+  	@grd0 d≠0 ∧ i<j ∧ f(i+1)>x ∧ f(j)≤x
+  then
+  	@act0 i≔i+1
+  	@act1 j≔j−1
+  	@act2 f≔  f{i+1↦f(j)} {j↦f(i+1)} //overriding
+  end
+end

@@ -1,0 +1,43 @@
+machine CommonNumberMch sees CommonNumberCtx
+
+variables i j d x
+
+invariants
+@inv0 i∈1‥m
+@inv1 j∈1‥n
+@inv2 d∈{0,1}
+@inv3 x∈ℕ  ∪{−1}
+
+events
+  event INITIALISATION then
+  	@act0 x ≔ −1
+  	@act1 d≔1
+  	@act2 i≔1
+  	@act3 j≔1
+  end
+
+  event aprog
+  when
+  	@grd0 d≠0
+  	@grd1 f(i)=g(j)
+  then
+  	@act0 x≔f(i)
+  	@act1 d≔0
+  end
+
+  event adv_f
+  when
+  	@grd0 d≠0
+  	@grd1 f(i)<g(j)
+  then
+  	@act0 i≔i+1
+  end
+
+  event adv_g
+  when
+  	@grd0 d≠0
+  	@grd1 g(j)<f(i)
+  then
+  	@act0 j≔j+1
+  end
+end

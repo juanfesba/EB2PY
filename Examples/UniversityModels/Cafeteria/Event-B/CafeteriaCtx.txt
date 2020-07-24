@@ -1,0 +1,8 @@
+context CafeteriaCtx
+
+constants MaxChairCnt
+
+axioms
+  @ax0 MaxChairCnt ∈ ℕ1
+end
+

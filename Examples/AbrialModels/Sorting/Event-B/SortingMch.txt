@@ -1,0 +1,55 @@
+machine SortingMch sees SortingCtx
+
+variables f d k j l
+
+invariants
+@inv0 f∈1‥m↣ℕ
+@inv1 d∈{0,1}
+@inv2 k∈1‥m
+@inv3 ∀i,ii·((i∈1‥k−1 ∧ ii∈1‥m ∧ i<ii )⇒(f(i)<f(ii)))
+@inv4 j∈k‥m
+@inv5 l∈k‥j
+@inv6 ∀i·((i∈(k‥j ∖ {l}))⇒(f(l)<f(i)))
+
+events
+  event INITIALISATION then
+  	@act0 f:∈1‥m↣ℕ
+  	@act1 k≔1
+  	@act2 l≔1
+  	@act3 j≔1
+  	@act4 d≔1
+  end
+
+  event aprog
+  when
+  	@grd0 d≠0
+  	@grd1 k=m
+  then
+  	@act0 d≔0
+  end
+
+  event progr
+  when
+  	@grd0 d≠0  ∧ k<m ∧ j=m
+  then
+  	@act0 k ≔  k+1
+  	@act1 j ≔  k+1
+  	@act2 l ≔  k+1
+  	@act3 f≔  f{k↦f(l)} {l↦f(k)}
+  end
+
+  event prog1
+  when
+  	@grd0 d≠0 ∧  k<m ∧ j<m ∧ f(l)≤f(j+1)
+  then
+  	@act0 j≔j+1
+  end
+
+  event prog2
+  when
+  	@grd0 d≠0 ∧  k<m ∧ j<m ∧ f(l)>f(j+1)
+  then
+  	@act0 j≔j+1
+  	@act1 l≔j+1
+  end
+end

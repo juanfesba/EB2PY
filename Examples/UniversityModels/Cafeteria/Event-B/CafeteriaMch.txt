@@ -1,0 +1,61 @@
+machine CafeteriaMch sees CafeteriaCtx
+variables
+  ClientsInQueueCnt
+  AvailableDishCnt
+  ClientsEatingCnt
+invariants
+  @inv0 ClientsInQueueCnt ∈ ℕ
+  @inv1 AvailableDishCnt ∈ ℕ
+  @inv2 ClientsEatingCnt ∈ 0‥MaxChairCnt
+events
+  event INITIALISATION
+  then
+    @act0 ClientsInQueueCnt ≔ 0
+    @act1 AvailableDishCnt ≔ 0
+    @act2 ClientsEatingCnt ≔ 0
+  end
+  event ArriveInQueue
+  any
+    ca
+  where
+    @grd0 ca ∈ 1‥50
+  then
+    @act0 ClientsInQueueCnt ≔ ClientsInQueueCnt + ca
+  end
+  event LeaveQueue
+  any
+    cl
+  where
+    @grd0 cl ∈ 1 ‥ ClientsInQueueCnt
+  then
+    @act0 ClientsInQueueCnt ≔ ClientsInQueueCnt − cl
+  end
+  event AddDishes
+  any
+    ad
+  where
+    @grd0 ad ∈ 1‥40
+  then
+    @act0 AvailableDishCnt ≔ AvailableDishCnt + ad
+  end
+  event ExitCafeteria
+  any
+    ce
+  where
+    @grd0 ce ∈ 1 ‥ ClientsEatingCnt
+  then
+    @act0 ClientsEatingCnt ≔ ClientsEatingCnt − ce
+  end
+  event ServeClients
+  any
+    c
+    d
+  where
+    @grd0 c ∈ 1 ‥ min({ ClientsInQueueCnt, AvailableDishCnt, MaxChairCnt−ClientsEatingCnt })
+    @grd1 d ∈ 1 ‥ c
+  then
+    @act0 ClientsInQueueCnt ≔ ClientsInQueueCnt − c
+    @act1 AvailableDishCnt ≔ AvailableDishCnt − d
+    @act2 ClientsEatingCnt ≔ ClientsEatingCnt + c
+  end
+end

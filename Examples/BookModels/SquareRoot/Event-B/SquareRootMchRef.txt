@@ -1,0 +1,43 @@
+machine SquareRootMchRef refines SquareRootMch  sees SquareRootCtx
+
+variables sqrt low high
+
+invariants
+@inv1 low ∈ ℕ
+@inv2 high ∈ ℕ
+@inv3 low + 1 ≤ high
+@inv4 low ∗ low ≤ num
+@inv5 low < high ∗ high
+
+variant
+high − low
+
+events
+  event INITIALISATION extends INITIALISATION then
+  	@act2 low :∣ low' ∈ ℕ ∧ low' ∗ low' ≤ num
+  	@act3 high :∣ high' ∈ ℕ ∧ num < high' ∗ high'
+  end
+
+  event SquareRootRef refines SquareRoot
+  where
+  	@grd1 low+1=high
+  then
+  	@act0 sqrt ≔ low
+  end
+
+  convergent event Improve
+  any
+  	l h
+  where
+  	@grd1 low+1 ≠ high
+  	@grd2 l∈ℕ ∧ low≤l ∧ l∗l≤num
+  	@grd3 h∈ℕ  ∧  h≤ high ∧ num<h∗h
+  	@grd4 l+1≤ h
+  	@grd5 h−l < high−low
+  then
+  	@act1 low ≔ l
+  	@act2 high ≔ h
+  end
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

@@ -1,0 +1,24 @@
+machine bbinMch sees bbinCtx
+variables r
+
+invariants
+  @inv1 r ∈ ℕ
+
+events
+  event INITIALISATION
+    then
+      @act1 r :∈ ℕ
+  end
+
+  event found
+    where
+      @grd1 r ∈ 1‥n
+      @grd2 f(r) = v
+  end
+
+  anticipated event progress
+    then
+      @act1 r :∈ ℕ
+  end
+
+end

@@ -1,0 +1,10 @@
+context SearchArrCtx
+constants
+	n
+	f
+	s
+axioms
+@ax0 n∈ℕ1
+@ax1 s ∈ ℙ(ℕ)
+@ax2 f∈1‥n→ s
+end

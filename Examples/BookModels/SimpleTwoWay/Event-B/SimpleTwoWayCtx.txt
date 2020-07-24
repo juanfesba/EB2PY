@@ -1,0 +1,15 @@
+context SimpleTwoWayCtx
+sets
+	LIGHTS DIRECTION
+constants
+	Red
+	Green
+	Yellow
+	NorthSouth
+	EastWest
+axioms
+@ax0 partition(LIGHTS,{Red},{Green},{Yellow})
+@ax1 partition(DIRECTION,{NorthSouth},{EastWest})
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

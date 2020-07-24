@@ -1,0 +1,36 @@
+machine SearchArrMch sees SearchArrCtx
+
+variables i x d k
+
+invariants
+@inv0 i∈dom(f)
+@inv1 x∈ran(f)
+@inv2 d∈{0,1}
+@inv3 k∈0‥n−1
+@inv4 x∉f[1‥k]
+
+
+events
+  event INITIALISATION then
+  	@act0 x:∈ran(f)
+  	@act1 d≔1
+  	@act2 i≔1
+  	@act3 k≔0
+  end
+
+  event aprog
+  when
+  	@grd0 d≠0
+  	@grd1 f(k+1)=x
+  then
+  	@act0 i ≔  k+1
+  	@act1 d ≔ 0
+  end
+
+  event progress
+  when
+  	@grd0 d≠0 ∧ f(k+1)≠x
+  then
+  	@act0 k≔k+1
+  end
+end

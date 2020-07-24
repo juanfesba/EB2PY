@@ -1,0 +1,59 @@
+machine CafeteriaMchRef refines CafeteriaMch  sees CafeteriaCtxExt
+
+variables ClientsInQueueCnt AvailableDishCnt ClientsEatingCnt Cashier Pickup
+invariants
+  @inv10 Cashier ∈ { CashierAvailable, CashierUnavailable }
+  @inv11 Pickup ∈ { PickupReady, NoPickup }
+
+events
+  event INITIALISATION extends INITIALISATION
+  then
+  	@act10 Cashier :∈ { CashierAvailable, CashierUnavailable }
+    @act11 Pickup ≔ NoPickup
+  end
+
+  event ArriveInQueue extends ArriveInQueue
+  end
+
+  event LeaveQueue extends LeaveQueue
+  end
+
+  event AddDishes extends AddDishes
+  end
+
+  event ExitCafeteria extends ExitCafeteria
+  end
+
+  event ServeClients extends ServeClients
+  where
+    @grd10 Cashier = CashierAvailable
+  end
+
+  event CallForPickup
+  where
+    @grd10 Pickup = NoPickup
+  then
+    @act10 Pickup ≔ PickupReady
+  end
+
+  event CollectPickup
+  where
+    @grd10 Pickup = PickupReady
+  then
+    @act11 Pickup ≔ NoPickup
+  end
+
+  event CashierCheckin
+  where
+    @grd10 Cashier = CashierUnavailable
+  then
+    @act10 Cashier ≔ CashierAvailable
+  end
+
+  event CashierCheckout
+  where
+    @grd10 Cashier = CashierAvailable
+  then
+    @act10 Cashier ≔ CashierUnavailable
+  end
+end

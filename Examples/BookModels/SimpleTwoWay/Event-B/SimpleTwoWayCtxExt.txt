@@ -1,0 +1,13 @@
+context SimpleTwoWayCtxExt extends SimpleTwoWayCtx
+constants
+	OTHERDIR
+axioms
+@ax2 OTHERDIR ∈ DIRECTION → DIRECTION
+@ax3 OTHERDIR(NorthSouth) = EastWest
+@ax4 OTHERDIR(EastWest) = NorthSouth
+@ax5 ∀dir·(dir∈DIRECTION ⇒ OTHERDIR(OTHERDIR(dir)) = dir)
+@ax6 OTHERDIR;OTHERDIR ⊆ id
+
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

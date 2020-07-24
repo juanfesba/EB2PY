@@ -1,0 +1,8 @@
+context SquareRootCtx
+constants
+	num
+axioms
+@ax0 num∈ℕ
+end
+
+// This Event-B component is based on models that appear in the following book: System Modelling & Design Using Event-B by Ken Robinson.

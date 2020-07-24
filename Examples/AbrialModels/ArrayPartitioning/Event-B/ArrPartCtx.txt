@@ -1,0 +1,8 @@
+context ArrPartCtx
+constants
+	x
+	m
+axioms
+@ax0 x∈ℕ
+@ax1 m=10
+end

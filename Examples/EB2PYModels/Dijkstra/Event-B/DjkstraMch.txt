@@ -1,0 +1,84 @@
+machine DjkstraMch sees DjkstraCtx
+
+variables finished visited heap distances new_distances d
+
+invariants
+@inv0 visited ∈ ℙ(CITIES)
+@inv1 finished ∈ BOOL
+@inv2 heap ∈ ℕ   ⇸ (CITIES×ℕ)
+@inv3 distances ∈ CITIES → ℕ
+@inv4 finished = TRUE ⇒ card(visited) = card(CITIES)
+@inv5 distances(source) = 0
+@inv6 ∀i,j·( (i∈dom(heap) ∧ j∈dom(heap) ∧ i<j) ⇒ min(ran({heap(i)})) ≤ min(ran({heap(j)})) )
+@inv7 new_distances ∈CITIES⇸ℕ
+@inv8 d∈ℕ
+
+events
+  event INITIALISATION then
+  	@act0 visited ≔ ∅
+  	@act1 finished ≔  FALSE
+  	@act2 distances ≔  {CALI↦0, BOGOTA↦9999, LA↦9999, SANFRANCISCO↦9999, MADRID↦9999, BERLIN↦9999, TOKYO↦9999}
+  	@act3 heap ≔  {0↦(source↦0)}
+  	@act4 new_distances ≔ ∅
+  	@act5 d≔0
+  end
+
+  event Finish
+  when
+  	@grd0 card(visited) = card(CITIES)
+  	@grd1 finished = FALSE
+  then
+  	@act0 finished ≔  TRUE
+  end
+
+  event PopNonVisited
+  when
+  	@grd0 finished = FALSE
+  	@grd1 card(visited) ≠ card(CITIES)
+  	@grd2 card(heap) > 0
+  	@grd3 dom({heap(min(dom(heap)))}) ⊆ visited
+  	@grd4 card(new_distances) = 0
+  then
+	@act0 heap ≔ {min(dom(heap))}⩤heap
+  end
+
+  event PopVisited
+  when
+  	@grd0 finished = FALSE
+  	@grd1 card(visited) ≠ card(CITIES)
+  	@grd2 card(heap) > 0
+  	@grd3 dom({heap(min(dom(heap)))}) ⊈ visited
+  	@grd4 card(new_distances) = 0
+  then
+	@act0 visited ≔ visited ∪ dom({heap(min(dom(heap)))})
+	@act1 new_distances ≔  graph[dom({heap(min(dom(heap)))})]
+	@act2 heap ≔ {min(dom(heap))}⩤heap
+	@act3 d ≔  min(ran({heap(min(dom(heap)))}))
+  end
+
+  event HeapNoPush
+  any city
+  where
+  	@grd0 card(new_distances) > 0
+  	@grd1 city ∈ dom(new_distances)
+  	@grd2 distances(city) ≤ d+new_distances(city)
+  	@grd3 card(visited) ≠ card(CITIES)
+  then
+  	@act0 new_distances ≔ new_distances  ∖ {city↦(new_distances(city))}
+  end
+
+  event HeapPush
+  any city
+  where
+  	@grd0 card(new_distances) > 0
+  	@grd1 city ∈ dom(new_distances)
+  	@grd2 distances(city) > d+new_distances(city)
+  	@grd3 card(visited) ≠ card(CITIES)
+  then
+  	@act0 new_distances ≔ new_distances  ∖ {city↦(new_distances(city))}
+  	@act1 distances(city) ≔ d+new_distances(city)
+  	@act2 heap ≔  sort_func(heap∪{card(heap)↦(city↦(d+new_distances(city)))})
+  end
+
+
+end

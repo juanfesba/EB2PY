@@ -1,0 +1,13 @@
+context SearchMatCtx
+constants
+	m
+	n
+	f
+	s
+axioms
+@ax0 m ∈ ℕ1
+@ax1 n ∈ ℕ1
+@ax2 s = 101‥116
+@ax3 f ∈ (1‥m)×(1‥n)→s
+@ax4 dom(f)∈ℙ(ℤ×ℤ)
+end

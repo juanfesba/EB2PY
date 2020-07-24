@@ -1,0 +1,11 @@
+context TrafficLightSystemCtx
+sets COLOURS
+constants
+	red
+	yellow
+	green
+axioms
+@ax0 partition(COLOURS,{red},{yellow},{green})
+end
+
+// This Event-B component is based on models that appear in the following book: Rodin User's Handbook.

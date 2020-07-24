@@ -1,0 +1,23 @@
+context DjkstraCtx
+
+sets CITIES
+
+constants
+	source
+	graph
+	sort_func
+	CALI
+	BOGOTA
+	LA
+	SANFRANCISCO
+	MADRID
+	BERLIN
+	TOKYO
+
+axioms
+@ax0 partition(CITIES,{CALI},{BOGOTA},{LA},{SANFRANCISCO},{MADRID},{BERLIN},{TOKYO})
+@ax1 source = CALI
+@ax2 graph ∈ CITIES↔(CITIES×ℕ)
+@ax3 sort_func ∈ (ℕ   ⇸ (CITIES×ℕ)) ⇸ (ℕ   ⇸ (CITIES×ℕ))
+
+end

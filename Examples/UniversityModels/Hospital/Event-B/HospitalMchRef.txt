@@ -1,0 +1,71 @@
+machine HospitalMchRef refines HospitalMch  sees HospitalCtxExt
+
+variables WaitingRoomCnt InSurgeryCnt HeadNurse NurseCnt MDCnt SurgeryCnt
+
+invariants
+  @inv10 NurseCnt ∈ ℕ
+  @inv11 MDCnt ∈ 0 ‥ MaxMDCap
+  @inv12 SurgeryCnt ∈ ℕ
+
+events
+  event INITIALISATION extends INITIALISATION
+    then
+      @act10 NurseCnt ≔  0
+      @act11 MDCnt ≔ 0
+      @act12 SurgeryCnt ≔ 0
+  end
+
+  event PatientArrival extends PatientArrival
+  end
+
+  event PatientDeparture extends PatientDeparture
+  end
+
+  event PatientToSurgeryRef extends PatientToSurgery
+    any n
+    where
+      @grd10 MDCnt > 0
+      @grd11 n ∈ 1 ‥ min({ 3 , NurseCnt })
+    then
+      @act10 MDCnt ≔ MDCnt − 1
+      @act11 NurseCnt ≔  NurseCnt − n
+  end
+
+  event PatientToRecovery extends PatientToRecovery
+    then
+      @act10 MDCnt ≔ MDCnt + 1
+      @act11 SurgeryCnt ≔ SurgeryCnt + 1
+  end
+
+  event HeadNurseArrival extends HeadNurseArrival
+  end
+
+  event HeadNurseDeparture extends HeadNurseDeparture
+  end
+
+  event NurseArrival
+    then
+      @act10 NurseCnt ≔  NurseCnt + 1
+  end
+
+  event NurseDeparture
+    where
+      @grd10 NurseCnt > 0
+    then
+      @act10 NurseCnt ≔  NurseCnt − 1
+  end
+
+  event MDArrival
+    where
+      @grd10 MDCnt < MaxMDCap
+    then
+      @act10 MDCnt ≔  MDCnt + 1
+  end
+
+  event MDDeparture
+    where
+      @grd10 MDCnt > 0
+    then
+      @act10 MDCnt ≔  MDCnt − 1
+  end
+end

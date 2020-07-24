@@ -1,0 +1,41 @@
+machine bbinMchRef refines bbinMch  sees bbinCtx
+
+variables r p q
+
+invariants
+  @inv1 p ∈ 1‥n
+  @inv2 q ∈ 1‥n
+  @inv3 r ∈ p‥q
+  @inv4 v ∈ f[p‥q]
+
+variant q−p
+
+events
+  event INITIALISATION
+    then
+      @act1 p ≔ 1
+      @act2 q ≔ n
+      @act3 r :∈ 1‥n
+  end
+
+  event found refines found
+    where
+      @grd1 f(r) = v
+  end
+
+  convergent event inc refines progress
+    where
+      @grd1 f(r)<v
+    then
+      @act1 p ≔ r+1
+      @act2 r:∈r+1‥q
+  end
+
+  convergent event dec refines progress
+    where
+      @grd1 f(r)>v
+    then
+      @act1 q ≔ r−1
+      @act2 r :∈ p‥r−1
+  end
+end

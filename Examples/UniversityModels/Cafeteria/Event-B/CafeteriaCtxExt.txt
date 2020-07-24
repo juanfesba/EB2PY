@@ -1,0 +1,8 @@
+context CafeteriaCtxExt extends CafeteriaCtx
+constants CashierAvailable CashierUnavailable PickupReady NoPickup
+axioms
+  @ax0 CashierAvailable = 1
+  @ax1 CashierUnavailable = 0
+  @ax2 PickupReady = 1
+  @ax3 NoPickup = 0
+end

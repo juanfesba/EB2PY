@@ -1,0 +1,13 @@
+context bbinCtx
+constants n f v
+
+axioms
+  @axm1 f ∈ 1‥n → ℕ
+  @axm2 ∀i,j· i∈1‥n ∧
+        j∈1‥n ∧
+        i≤j
+        ⇒
+        f(i)≤f(j)
+  @axm3 v ∈ ran(f)
+  theorem @thm1 n ≥ 1
+end
